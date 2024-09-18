@@ -1,0 +1,136 @@
+<div>
+  <p class="text-xl font-bold mb-5">بيانات شركتك</p>
+
+  <!-- Company Information Form -->
+
+  <form
+    [formGroup]="companyInformationForm"
+    (ngSubmit)="submit()"
+    class="grid grid-cols-1 md:grid-cols-2 gap-7"
+  >
+    <!-- Company Name -->
+    <div>
+      <label for="name" class="block mb-1"> اسم الشركة</label>
+      <input
+        id="name"
+        name="name"
+        placeholder="اسم الشركة"
+        formControlName="name"
+      />
+      <div
+        *ngIf="name.invalid && (name.dirty || name.touched)"
+        class="w-100 py-2 container bg-rose-700 text-white mt-1 rounded"
+      >
+        <p *ngIf="name.errors?.['required']">ادخل اسم شركتك</p>
+        <p *ngIf="name.errors?.['whitespace']">الاسم لا يجب أن يبدأ بمسافة.</p>
+        <p *ngIf="name.errors?.['minlength']">الاسم قصير جداً</p>
+      </div>
+    </div>
+
+    <!-- Company Slug -->
+    <div>
+      <label for="slug" class="block mb-1"> اضف رابط لشركتك</label>
+      <input
+        id="slug"
+        name="slug"
+        placeholder="اضف رابط لشركتك باللغة الإنجليزية"
+        formControlName="slug"
+      />
+      <div
+        *ngIf="slug.invalid && (slug.dirty || slug.touched)"
+        class="w-100 py-2 container bg-rose-700 text-white mt-1 rounded"
+      >
+        <p *ngIf="slug.errors?.['required']">ادخل رابط شركتك</p>
+        <p *ngIf="slug.errors?.['pattern']">
+          الرابط يجب أن يكون بالحروف الإنجليزية فقط
+        </p>
+        <p *ngIf="slug.errors?.['minlength']">الاسم قصير جداً</p>
+      </div>
+    </div>
+
+    <!-- Company Field -->
+    <div>
+      <label for="field" class="block mb-1">مجال الشركة</label>
+      <select
+        id="field"
+        name="field"
+        placeholder="مجال الشركة"
+        formControlName="field"
+        ngModel
+      >
+        <option value="" disabled selected>اختر مجال شركتك</option>
+
+        @for (option of companyFieldOptions; track option.id) {
+        <option [value]="option.value">{{ option.title }}</option>
+        }
+      </select>
+      <div
+        *ngIf="field.invalid && (field.dirty || field.touched)"
+        class="w-100 py-2 container bg-rose-700 text-white mt-1 rounded"
+      >
+        <p *ngIf="field.errors?.['required']">اختر مجال شركتك</p>
+      </div>
+    </div>
+
+    <!-- Company Size -->
+    <div>
+      <label for="size" class="block mb-1">عدد الموظفين</label>
+      <select
+        id="size"
+        name="size"
+        placeholder="عدد الموظفين"
+        formControlName="size"
+        ngModel
+      >
+        <option value="" disabled selected>اختر عدد موظفين شركتك</option>
+        @for (option of companySizeOptions; track option.id) {
+        <option [value]="option.value">{{ option.title }}</option>
+        }
+      </select>
+      <div
+        *ngIf="size.invalid && (size.dirty || size.touched)"
+        class="w-100 py-2 container bg-rose-700 text-white mt-1 rounded"
+      >
+        <p *ngIf="size.errors?.['required']">ادخل عدد موظفين شركتك</p>
+      </div>
+    </div>
+
+    <!-- Company VAT Registration Status -->
+    <div>
+      <label for="vat_status" class="block mb-1">
+        هل أنت مسجل لضريبة القيمة المضافة؟</label
+      >
+      <div class="flex gap-5">
+        <div class="flex gap-2">
+          <input
+            id="yes"
+            type="radio"
+            name="vat_status"
+            formControlName="vat_status"
+            value="1"
+          />
+          <label for="yes">نعم</label>
+        </div>
+        <div class="flex gap-2">
+          <input
+            id="no"
+            type="radio"
+            name="vat_status"
+            formControlName="vat_status"
+            value="0"
+          />
+          <label for="no">لا</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      [disabled]="companyInformationForm.invalid"
+      class="rounded py-2 mt-2 bg-primary text-white hover:ring-2 hover:ring-primary"
+    >
+      إرسال
+    </button>
+  </form>
+</div>

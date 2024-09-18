@@ -1,0 +1,17 @@
+<div
+  class="overflow-x-auto max-w-full max-h-96 shadow-lg ring-1 ring-slate-200 rounded-lg"
+>
+  <table class="shadow">
+    <thead class="text-nowrap bg-slate-50">
+      @for (tableHeader of tableHeaders; track $index) {
+      <th class="px-5 py-2">
+        {{ tableHeader }}
+      </th>
+      }
+    </thead>
+    <tbody (contextmenu)="showMainMenu($event, 'status', '1')">
+      <ng-content></ng-content>
+    </tbody>
+  </table>
+</div>
+<app-main-menu></app-main-menu>

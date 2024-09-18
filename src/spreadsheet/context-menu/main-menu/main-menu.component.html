@@ -1,0 +1,22 @@
+<div
+  id="context-menu"
+  class="absolute z-50"
+  [ngStyle]="{ top: position.y + 'px', left: position.x + 'px' }"
+>
+  @if (isVisible) {
+  <ul class="bg-white p-1 shadow-lg rounded-lg ring-1 ring-slate-200">
+    <li (click)="sendAction('row-up')">
+      <fa-icon [icon]="icons.up"></fa-icon>
+      <p>إدراج صف لأعلى</p>
+    </li>
+    <li (click)="sendAction('row-down')">
+      <fa-icon [icon]="icons.down"></fa-icon>
+      <p>إدراج صف لأسفل</p>
+    </li>
+    <li (click)="sendAction('row-destroy')">
+      <fa-icon [icon]="icons.delete"></fa-icon>
+      <p>حذف الصف</p>
+    </li>
+  </ul>
+  }
+</div>

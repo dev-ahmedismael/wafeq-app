@@ -1,0 +1,61 @@
+<section class="grid grid-cols-1 gap-10">
+  <div
+    class="bg-white ring-1 ring-slate-200 rounded-lg container py-2 flex justify-between items-center"
+  >
+    <div>
+      <app-search path="tax-rates"></app-search>
+    </div>
+    <div class="flex items-center gap-5">
+      <div>
+        <app-sort [sortItems]="sortItems"></app-sort>
+      </div>
+      <div>
+        <app-filter>
+          <form
+            [formGroup]="filterForm"
+            (ngSubmit)="submit()"
+            class="text-slate-500"
+          >
+            <div class="flex justify-between items-center pb-2">
+              <p class="text-lg">تصفية</p>
+              <div class="flex gap-3">
+                <button type="button" class="regular-button" (click)="reset()">
+                  مسح
+                </button>
+                <button type="submit" class="blue-button">تطبيق</button>
+              </div>
+            </div>
+            <hr />
+            <div class="flex gap-10 justify-between py-5">
+              <p>نوع الضريبة</p>
+              <select
+                name="tax_type"
+                formControlName="tax_type"
+                class="ring-1 ring-slate-400 rounded"
+              >
+                <option value="مبيعات">مبيعات</option>
+                <option value="مشتريات">مشتريات</option>
+                <option value="إحتساب عكسي">إحتساب عكسي</option>
+                <option value="غير خاضع للضريبة">غير خاضع للضريبة</option>
+              </select>
+            </div>
+          </form>
+        </app-filter>
+      </div>
+      <app-navigate-button
+        route="create"
+        text="إضافة ضريبة جديدة"
+      ></app-navigate-button>
+    </div>
+  </div>
+  <div
+    class="relative max-w-full overflow-x-auto ring-1 ring-slate-200 rounded-lg"
+  >
+    @if (data) {
+    <app-tax-rates-table
+      [tableHeaders]="tableHeaders"
+      [data]="data"
+    ></app-tax-rates-table
+    >}
+  </div>
+</section>

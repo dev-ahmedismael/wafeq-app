@@ -1,0 +1,37 @@
+.selected-cell {
+  border: 2px solid #38bdf8;
+  background-color: white;
+}
+
+.cell {
+  position: relative;
+  height: 35px;
+  max-height: 35px;
+  text-wrap: nowrap;
+  text-align: center;
+  cursor: cell;
+  padding: 0 15px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+.dragger {
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  right: 100%;
+  width: 5px;
+  height: 5px;
+  background-color: #38bdf8;
+  outline: 1px solid white;
+  cursor: crosshair;
+}
+.draggable {
+  cursor: crosshair;
+}
+.dragged-cell {
+  background-color: #f0fdfa;
+}
+input {
+  background-color: transparent;
+}

@@ -1,0 +1,78 @@
+<form
+  [formGroup]="registerForm"
+  (ngSubmit)="submit()"
+  class="grid grid-cols-1 gap-3"
+>
+  <!-- Email -->
+  <div>
+    <label for="email" class="block mb-1">البريد الالكتروني</label>
+    <input
+      id="email"
+      name="email"
+      placeholder="name@email.com"
+      formControlName="email"
+    />
+    <div
+      *ngIf="email.invalid && (email.dirty || email.touched)"
+      class="w-100 py-2 container bg-rose-700 text-white mt-1 rounded"
+    >
+      <p *ngIf="email.errors?.['required']">البريد الإلكتروني مطلوب.</p>
+      <p *ngIf="email.errors?.['email']">ادخل بريد الكتروني صالح.</p>
+    </div>
+  </div>
+
+  <!-- Password -->
+  <div>
+    <label for="password" class="block mb-1">كلمة المرور</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      placeholder="******"
+      formControlName="password"
+    />
+    <div
+      *ngIf="password.invalid && (password.dirty || password.touched)"
+      class="w-100 py-2 container bg-rose-700 text-white mt-1 rounded"
+    >
+      <p *ngIf="password.errors?.['required']">كلمة المرور مطلوبة .</p>
+      <p *ngIf="password.errors?.['minlength']">ادخل كلمة مرور قوية</p>
+    </div>
+  </div>
+
+  <!-- Password Confirmation -->
+  <div>
+    <label for="password_confirm" class="block mb-1">تأكيد كلمة المرور</label>
+    <input
+      id="password_confirm"
+      name="password_confirm"
+      type="password"
+      placeholder="******"
+      formControlName="password_confirm"
+    />
+    <div
+      *ngIf="
+        password_confirm.invalid &&
+        (password_confirm.dirty || password_confirm.touched)
+      "
+      class="w-100 py-2 container bg-rose-700 text-white mt-1 rounded"
+    >
+      <p *ngIf="password_confirm.errors?.['required']">
+        ادخل كلمة المرور مرة أخرى للتأكيد
+      </p>
+      <p *ngIf="password_confirm.errors?.['password_mismatch']">
+        كلمة المرور غير متطابقة
+      </p>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <button
+    type="submit"
+    [disabled]="registerForm.invalid"
+    class="rounded py-2 mt-2 bg-primary text-white hover:ring-2 hover:ring-primary"
+  >
+    إنشاء حساب جديد
+  </button>
+</form>
+<app-error-message [message]="errorMessage"></app-error-message>

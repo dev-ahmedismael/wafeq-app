@@ -1,0 +1,117 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" [ngClass]="gridClass">
+  @for (field of config; track $index) {
+  <!-- Text/Email Inputs -->
+  <ng-container *ngIf="field.type === 'text' || field.type === 'email'">
+    <label>{{ field.label }}</label>
+    <div>
+      <input
+        [type]="field.type"
+        [formControlName]="field.name"
+        [placeholder]="field.placeholder"
+        [ngClass]="formOptions.inputClasses"
+      />
+      <div *ngIf="isInvalid(field.name)">
+        <small class="text-rose-700">{{ getErrorMessage(field.name) }}</small>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Date Inputs -->
+  <ng-container *ngIf="field.type === 'date'">
+    <label>{{ field.label }}</label>
+    <div>
+      <input
+        [type]="field.type"
+        [formControlName]="field.name"
+        [placeholder]="field.placeholder"
+        [ngClass]="formOptions.inputClasses"
+      />
+      <div *ngIf="isInvalid(field.name)">
+        <small class="text-rose-700">{{ getErrorMessage(field.name) }}</small>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Select -->
+  <ng-container *ngIf="field.type === 'select'">
+    <label>{{ field.label }}</label>
+    <div>
+      <select
+        [formControlName]="field.name"
+        [ngClass]="formOptions.inputClasses"
+      >
+        <option *ngFor="let option of field.options" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+      <div *ngIf="isInvalid(field.name)">
+        <small class="text-rose-700">{{ getErrorMessage(field.name) }}</small>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Radio Buttons -->
+  <ng-container *ngIf="field.type === 'radio'">
+    <label>{{ field.label }}</label>
+    <div>
+      <div *ngFor="let option of field.options" class="flex gap-5">
+        <label>
+          <input
+            type="radio"
+            [formControlName]="field.name"
+            [value]="option.value"
+          />
+          {{ option.label }}</label
+        >
+      </div>
+      <div *ngIf="isInvalid(field.name)">
+        <small class="text-rose-700">{{ getErrorMessage(field.name) }}</small>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Checkbox -->
+  <div *ngIf="field.type === 'checkbox'">
+    <label>
+      <input type="checkbox" [formControlName]="field.name" />
+      {{ field.label }}
+    </label>
+  </div>
+
+  <!-- Textarea -->
+  <ng-container *ngIf="field.type === 'textarea'">
+    <label>{{ field.label }}</label>
+    <div>
+      <textarea
+        [formControlName]="field.name"
+        [placeholder]="field.placeholder"
+        [ngClass]="formOptions.inputClasses"
+      ></textarea>
+      <div *ngIf="isInvalid(field.name)">
+        <small class="text-rose-700">{{ getErrorMessage(field.name) }}</small>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- File Input -->
+  <ng-container *ngIf="field.type === 'file'">
+    <label>{{ field.label }}</label>
+    <div>
+      <input type="file" (change)="onFileChange($event, field.name)" [multiple]="field.multiple" />
+      <div *ngIf="isInvalid(field.name)">
+        <small class="text-rose-700">{{ getErrorMessage(field.name) }}</small>
+      </div>
+    </div>
+  </ng-container>
+  }
+
+  <div>
+    <button
+      type="submit"
+      [disabled]="form.invalid"
+      [ngClass]="formOptions.submitClasses"
+    >
+      {{ formOptions.submit }}
+    </button>
+  </div>
+</form>

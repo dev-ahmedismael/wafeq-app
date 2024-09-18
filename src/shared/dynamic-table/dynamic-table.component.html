@@ -1,0 +1,196 @@
+<div class="flex justify-between items-center mb-5">
+  <!-- Search -->
+  <div class="py-2 text-slate-500">
+    <form [formGroup]="searchForm" (ngSubmit)="search()">
+      <input
+        type="text"
+        placeholder="بحث..."
+        name="query"
+        formControlName="query"
+        class="bg-transparent focus:outline-none"
+      />
+      <button type="submit" [disabled]="searchForm.invalid">
+        <fa-icon [icon]="icons.search"></fa-icon>
+      </button>
+    </form>
+  </div>
+
+  <!-- Buttons-->
+  <div class="py-2 text-slate-500 flex items-center gap-5">
+    <!-- Sort -->
+    @if(tableOptions.sortable){
+    <div
+      class="relative"
+      (mouseenter)="toggleSortMenu()"
+      (mouseleave)="toggleSortMenu()"
+    >
+      <button
+        class="flex gap-2"
+        [ngClass]="sortMenuActive ? 'text-primary' : ''"
+      >
+        <p>ترتيب</p>
+        <fa-icon [icon]="icons.sort"></fa-icon>
+      </button>
+      <div
+        class="absolute z-50 top-full left-0 pt-3"
+        [ngClass]="sortMenuActive ? 'block' : 'hidden'"
+      >
+        <div
+          class="ring-1 ring-slate-200 bg-white p-5 rounded-lg max-h-80 overflow-y-auto text-nowrap"
+        >
+          <table>
+            @for (col of tableConfig; track $index) {
+            <tr class="bg-white">
+              <td>{{ col.header }}</td>
+              <td>
+                <button (click)="sort(col.key, 'asc')">تصاعدي</button>
+              </td>
+              <td>
+                <button (click)="sort(col.key, 'desc')">تنازلي</button>
+              </td>
+            </tr>
+            }
+          </table>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Filter -->
+    @if (tableOptions.filterable) {
+
+    <div
+      class="relative"
+      (mouseenter)="toggleFilterMenu()"
+      (mouseleave)="toggleFilterMenu()"
+    >
+      <button
+        class="flex gap-2"
+        [ngClass]="filterMenuActive ? 'text-primary' : ''"
+      >
+        <p>تصفية</p>
+        <fa-icon [icon]="icons.filter"></fa-icon>
+      </button>
+      <div
+        class="absolute z-50 top-full left-0 pt-3"
+        [ngClass]="filterMenuActive ? 'block' : 'hidden'"
+      >
+        <div
+          class="ring-1 ring-slate-200 bg-white p-5 rounded-lg max-h-80 overflow-y-auto w-max text-nowrap"
+        >
+          <app-dynamic-form
+            [config]="filters"
+            [formOptions]="filterFromOptions"
+            (formDataEmitter)="onFilter($event)"
+          ></app-dynamic-form>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Create -->
+    @if (tableOptions.creatable) {
+    <a routerLink="create">
+      <button type="button" class="blue-btn"><p>إضافة +</p></button>
+    </a>
+    }
+  </div>
+</div>
+
+<!-- Table -->
+<div
+  class="relative max-w-full overflow-x-auto rounded-lg ring-1 ring-slate-200 shadow"
+>
+  <table class="text-center text-nowrap w-full text-slate-500">
+    <thead class="bg-sky-600 text-white">
+      <tr>
+        @for (item of tableConfig; track $index) {
+        <th>{{ item.header }}</th>
+
+        }
+      </tr>
+    </thead>
+    <tbody>
+      <!-- If empty -->
+      @if (res?.data?.length == 0) {
+      <tr>
+        <td [attr.colspan]="tableConfig.length" class="w-full">
+          <p class="text-center">لا توجد نتائج</p>
+        </td>
+      </tr>
+      }
+
+      <!-- If data exists -->
+      @for (row of res.data; track $index) {
+      <tr>
+        @for (col of tableConfig; track $index) {
+        <td>
+          <ng-container [ngSwitch]="col.type">
+            <span *ngSwitchCase="'text'">{{ row[col.key] }}</span>
+            <span *ngSwitchCase="'number'">{{ row[col.key] }}</span>
+            <span *ngSwitchCase="'date'">{{ row[col.key].slice(0, 10) }}</span>
+            <a
+              *ngSwitchCase="'attachment'"
+              [href]="row[col.key]"
+              target="_blank"
+              >Download</a
+            >
+          </ng-container>
+        </td>
+        }
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  @if (res.last_page > 1) {
+  <div class="paginator py-2">
+    <div class="container flex justify-between">
+      <!-- Got to page -->
+      <div class="flex gap-5 text-slate-500">
+        <p>الذهاب إلى الصفحة رقم</p>
+        <select
+          [value]="res.current_page"
+          class="page-input focus:outline-none rounded-lg text-center"
+          (change)="goToPage($event)"
+        >
+          @for (page of pages; track $index) {
+          <option [value]="page">{{ page }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Pages -->
+      <div class="flex gap-5">
+        <button
+          class="text-slate-500 disabled:text-slate-400"
+          [disabled]="res.current_page == 1"
+          (click)="changePage(res.current_page - 1)"
+        >
+          الصفحة السابقة
+        </button>
+        <button class="text-slate-500">
+          {{ res.current_page }}
+        </button>
+        <button
+          class="text-slate-500 disabled:text-slate-400"
+          [disabled]="res.current_page == res.last_page"
+          (click)="changePage(res.current_page + 1)"
+        >
+          الصفحة التالية
+        </button>
+      </div>
+
+      <!-- Resulte -->
+      <div class="text-slate-500">
+        <p>
+          عرض النتائج من <span>{{ res.from }}</span> إلى
+          <span>{{ res.to }}</span> من إجمالي
+          <span>{{ res.total }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  }
+</div>

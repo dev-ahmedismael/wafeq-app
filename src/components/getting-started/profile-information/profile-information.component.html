@@ -1,0 +1,104 @@
+<div>
+  <p class="text-xl font-bold mb-5">بيانات الملف الشخصي</p>
+
+  <!-- Profile Information Form -->
+
+  <form
+    [formGroup]="profileInformationForm"
+    (ngSubmit)="submit()"
+    class="grid grid-cols-1 gap-3"
+  >
+    <!-- First Name -->
+    <div>
+      <label for="first_name" class="block mb-1">الاسم الأول</label>
+      <input
+        id="first_name"
+        name="first_name"
+        placeholder="الاسم الأول"
+        formControlName="first_name"
+        class="input"
+      />
+      <div
+        *ngIf="first_name.invalid && (first_name.dirty || first_name.touched)"
+        class="w-100 py-2 container bg-rose-700 text-white mt-1 rounded"
+      >
+        <p *ngIf="first_name.errors?.['required']">ادخل اسمك الأول</p>
+        <p *ngIf="first_name.errors?.['whitespace']">
+          الاسم لا يجب أن يبدأ بمسافة.
+        </p>
+        <p *ngIf="first_name.errors?.['minlength']">الاسم قصير جداً</p>
+      </div>
+    </div>
+
+    <!-- Last Name -->
+    <div>
+      <label for="last_name" class="block mb-1">اسم العائلة</label>
+      <input
+        id="last_name"
+        name="last_name"
+        placeholder="اسم العائلة"
+        formControlName="last_name"
+        class="input"
+      />
+      <div
+        *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)"
+        class="w-100 py-2 container bg-rose-700 text-white mt-1 rounded"
+      >
+        <p *ngIf="last_name.errors?.['required']">ادخل اسم عائلتك</p>
+        <p *ngIf="last_name.errors?.['whitespace']">
+          الاسم لا يجب أن يبدأ بمسافة.
+        </p>
+        <p *ngIf="last_name.errors?.['minlength']">الاسم قصير جداً</p>
+      </div>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="max-w-sm mx-auto">
+      <label for="phone_number">رقم الجوال</label>
+      <div class="flex items-center" dir="ltr">
+        <button
+          id="dropdown-phone-button"
+          data-dropdown-toggle="dropdown-phone"
+          class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s hover:bg-gray-200 gap-2"
+          type="button"
+        >
+          <img
+            ngSrc="assets/images/saudi-arabia-flag.png"
+            alt="Saudi Arabia Flag"
+            width="25"
+            height="15"
+          />
+          <p>+966</p>
+        </button>
+        <div class="relative w-full">
+          <input
+            type="text"
+            id="phone_number"
+            class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e border-s-0 border border-gray-300"
+            placeholder="055 123 4567"
+            formControlName="phone_number"
+          />
+        </div>
+      </div>
+      <div
+        *ngIf="
+          phone_number.invalid && (phone_number.dirty || phone_number.touched)
+        "
+        class="w-100 py-2 container bg-rose-700 text-white mt-1 rounded"
+      >
+        <p *ngIf="phone_number.errors?.['required']">رقم الجوال مطلوب.</p>
+
+        <p *ngIf="phone_number.errors?.['pattern']">رقم الجوال غير صالح.</p>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      [disabled]="profileInformationForm.invalid"
+      class="rounded py-2 mt-2 bg-primary text-white hover:ring-2 hover:ring-primary"
+    >
+      إرسال
+    </button>
+  </form>
+</div>

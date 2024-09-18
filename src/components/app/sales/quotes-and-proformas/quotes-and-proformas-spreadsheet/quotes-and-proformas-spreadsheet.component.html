@@ -1,0 +1,280 @@
+<app-spreadsheet [tableHeaders]="headers" [data]="data">
+  <ng-container *ngFor="let row of data; let index = index">
+    <tr
+      app-row
+      [ngClass]="spreadsheetService.selectedRow == row.id ? 'selected-row' : ''"
+      (dragenter)="spreadsheetService.updateDragLastIndex(index)"
+    >
+      <!-- Status -->
+      <td
+        app-cell
+        col="status"
+        [row]="row"
+        [index]="index"
+        [value]="row.status"
+      >
+        @if (spreadsheetService.activeCol == 'status' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.status"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.status }}</p>
+        }
+      </td>
+
+      <!-- Attachments -->
+      <td app-cell col="attachments" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'attachments' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.attachments"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.attachments }}</p>
+        }
+      </td>
+
+      <!-- Number -->
+      <td app-cell col="number" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'number' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.number"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.number }}</p>
+        }
+      </td>
+
+      <!-- Date -->
+      <td app-cell col="date" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'date' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.date"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.date }}</p>
+        }
+      </td>
+
+      <!-- Customer -->
+      <td app-cell col="customer" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'customer' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.customer"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.customer }}</p>
+        }
+      </td>
+
+      <!-- Currency -->
+      <td app-cell col="currency" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'currency' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.currency"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.currency }}</p>
+        }
+      </td>
+
+      <!-- Quote Amount -->
+      <td app-cell col="quote_amount" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'quote_amount' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.quote_amount"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.quote_amount }}</p>
+        }
+      </td>
+
+      <!-- Item -->
+      <td app-cell col="item" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'item' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.item"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.item }}</p>
+        }
+      </td>
+
+      <!-- Line item description -->
+      <td app-cell col="line_item_description" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'line_item_description' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.line_item_description"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.line_item_description }}</p>
+        }
+      </td>
+
+      <!-- Qty -->
+      <td app-cell col="qty" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'qty' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.qty"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.qty }}</p>
+        }
+      </td>
+
+      <!-- Price -->
+      <td app-cell col="price" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'price' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.price"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.price }}</p>
+        }
+      </td>
+
+      <!-- Tax rate -->
+      <td app-cell col="tax_rate" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'tax_rate' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.tax_rate"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.tax_rate }}</p>
+        }
+      </td>
+
+      <!-- Discount -->
+      <td app-cell col="discount" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'discount' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.discount"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.discount }}</p>
+        }
+      </td>
+
+      <!-- Line amount -->
+      <td app-cell col="line_amount" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'line_amount' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.line_amount"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.line_amount }}</p>
+        }
+      </td>
+
+      <!-- Reference -->
+      <td app-cell col="reference" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'reference' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.reference"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.reference }}</p>
+        }
+      </td>
+
+      <!-- Project -->
+      <td app-cell col="project" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'project' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.project"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.project }}</p>
+        }
+      </td>
+
+      <!-- Notes -->
+      <td app-cell col="notes" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'notes' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.notes"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.notes }}</p>
+        }
+      </td>
+
+      <!-- Quote ID -->
+      <td app-cell col="quote_id" [row]="row" [index]="index">
+        @if (spreadsheetService.activeCol == 'quote_id' &&
+        spreadsheetService.activeRow == row.id) {
+        <input
+          type="text"
+          [value]="row.quote_id"
+          (blur)="spreadsheetService.sendData($event)"
+        />
+        }@else {
+        <p>{{ row.quote_id }}</p>
+        }
+      </td>
+
+      <!-- Created At -->
+      <td app-cell col="created_at" [row]="row" [index]="index" dir="ltr">
+        <p>{{ row.created_at.slice(0, 19).replace("T", " ") }}</p>
+      </td>
+
+      <!-- Updated At -->
+      <td app-cell col="updated_at" [row]="row" [index]="index">
+        <p>{{ row.updated_at.slice(0, 19).replace("T", " ") }}</p>
+      </td>
+    </tr>
+  </ng-container>
+</app-spreadsheet>
+<app-main-menu
+  (actionEvent)="spreadsheetService.makeMenuAction($event)"
+></app-main-menu>

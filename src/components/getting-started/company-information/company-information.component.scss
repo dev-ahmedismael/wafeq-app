@@ -1,0 +1,8 @@
+input:not([type="radio"]),
+select {
+  border: 1px solid lightgray !important;
+  border-radius: 4px;
+  height: 40px;
+  width: 250px;
+  padding: 0px 7px;
+}

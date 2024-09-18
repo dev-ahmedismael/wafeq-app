@@ -1,0 +1,14 @@
+<div>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="flex gap-2">
+    <input
+      type="search"
+      name="search"
+      formControlName="search"
+      placeholder="بحث..."
+      class="bg-transparent"
+    />
+    <button type="submit" class="blue-button" [disabled]="form.invalid">
+      <fa-icon [icon]="searchIcon"></fa-icon>
+    </button>
+  </form>
+</div>

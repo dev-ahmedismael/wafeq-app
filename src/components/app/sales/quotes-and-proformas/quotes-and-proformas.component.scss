@@ -1,0 +1,44 @@
+table,
+th,
+td {
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  border-collapse: collapse;
+  text-align: center;
+}
+tbody {
+  overflow: hidden;
+}
+// .selected-cell {
+//   border: 2px solid #38bdf8;
+//   background-color: white;
+// }
+
+// td {
+//   position: relative;
+//   height: 35px;
+//   max-height: 35px;
+//   text-wrap: nowrap;
+//   cursor: cell;
+//   padding: 0 15px;
+// }
+// .dragger {
+//   position: absolute;
+//   z-index: 10;
+//   top: 100%;
+//   right: 100%;
+//   width: 5px;
+//   height: 5px;
+//   background-color: #38bdf8;
+//   outline: 1px solid white;
+//   cursor: crosshair;
+// }
+// .draggable {
+//   cursor: crosshair;
+// }
+// .dragged-cell {
+//   background-color: #f0fdfa;
+// }
+// input {
+//   background-color: transparent;
+// }

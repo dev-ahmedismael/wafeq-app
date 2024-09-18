@@ -1,0 +1,34 @@
+<button type="button" class="relative text-nowrap" (click)="toggleVisibility()">
+  <div class="flex items-center gap-3 text-slate-600">
+    <fa-icon [icon]="sortIcon"></fa-icon>
+    <p>ترتيب</p>
+  </div>
+
+  <!-- Dropdown menu -->
+  <div class="z-10 absolute top-full left-0 pt-5">
+    <div
+      class="bg-white rounded-lg shadow container py-2 w-fit max-h-80 overflow-y-auto"
+      [ngClass]="{ hidden: !isVisible }"
+    >
+      <table class="text-slate-600">
+        <tbody>
+          @for (item of sortItems; track $index) {
+          <tr>
+            <td>{{ item.title }}</td>
+            <td class="px-5 py-2">
+              <button (click)="sort(item.col, 'asc')">
+                {{ item.ascending }}
+              </button>
+            </td>
+            <td>
+              <button (click)="sort(item.col, 'desc')">
+                {{ item.descending }}
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</button>

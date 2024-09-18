@@ -1,0 +1,34 @@
+<div
+  (click)="spreadsheetService.updateSelectedCell(col, row.id)"
+  (dblclick)="spreadsheetService.updateActiveCell(col, row.id)"
+  (dragover)="spreadsheetService.onDragOver($event)"
+  (dragenter)="spreadsheetService.onDragEnter($event)"
+  [ngClass]="
+    col == spreadsheetService.dragData.col &&
+    index <= spreadsheetService.dragData.lastRowIndex &&
+    index >= spreadsheetService.dragData.firstRowIndex
+      ? 'dragged-cell'
+      : ''
+  "
+  [ngClass]="
+    spreadsheetService.selectedCol == col &&
+    spreadsheetService.selectedRow == row.id
+      ? 'selected-cell'
+      : ''
+  "
+  class="w-full h-full cell"
+>
+  <ng-content></ng-content>
+  <div
+    draggable="true"
+    (dragstart)="spreadsheetService.onDragStart($event, value, col, index)"
+    (dragend)="spreadsheetService.onDragEnd($event)"
+    class="draggable"
+    [ngClass]="
+      spreadsheetService.selectedCol == col &&
+      spreadsheetService.selectedRow == row.id
+        ? 'dragger'
+        : ''
+    "
+  ></div>
+</div>

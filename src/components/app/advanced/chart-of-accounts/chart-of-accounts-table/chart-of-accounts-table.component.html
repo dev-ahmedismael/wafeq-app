@@ -1,0 +1,81 @@
+<table class="bg-white text-center text-nowrap">
+  <thead class="bg-slate-100">
+    @for (header of tableHeaders; track header.id) {
+    <th class="py-3" [width]="header.width">{{ header.title }}</th>
+    }
+  </thead>
+  <tbody>
+    @for (row of data; track $index) { @for (type of row.types; track $index) {
+    @for (account of type.accounts; track $index) {
+    <tr class="hover:bg-sky-50">
+      <td>
+        {{ row.class }}
+      </td>
+      <td>
+        {{ type.title }}
+      </td>
+
+      <td>
+        {{ account.code }}
+      </td>
+      <td>
+        {{ account.account_name }}
+      </td>
+      <td>
+        {{ account.type }}
+      </td>
+      <td>
+        {{ account.activity }}
+      </td>
+      <td>
+        <p class="bg-rose-200 text-rose-700 rounded-lg">
+          {{ account.debit }}
+        </p>
+      </td>
+      <td>
+        <p class="bg-teal-200 text-teal-600 rounded-lg">
+          {{ account.credit }}
+        </p>
+      </td>
+      <td>
+        @if (account.enable_payments) {
+        <fa-icon [icon]="icons.true" class="text-teal-600"></fa-icon>
+        } @else {
+        <fa-icon [icon]="icons.false" class="text-rose-700"></fa-icon>
+        }
+      </td>
+      <td>
+        @if (account.show_in_expense_claim) {
+        <fa-icon [icon]="icons.true" class="text-teal-600"></fa-icon>
+        } @else {
+        <fa-icon [icon]="icons.false" class="text-rose-700"></fa-icon>
+        }
+      </td>
+      <td>
+        @if (account.editable) {
+        <button (click)="edit(account.id)">
+          <fa-icon [icon]="icons.edit" class="text-primary"></fa-icon>
+        </button>
+        } @else {
+        <button title="غير قابل للتعديل">
+          <fa-icon [icon]="icons.edit" class="text-primary"></fa-icon>
+        </button>
+        }
+      </td>
+      <td>
+        @if (account.editable) {
+        <button (click)="destroy(account.id)">
+          <fa-icon
+            [icon]="icons.delete"
+            class="text-rose-700"
+          ></fa-icon></button
+        >} @else {
+        <button title="غير قابل للحذف">
+          <fa-icon [icon]="icons.delete" class="text-rose-700"></fa-icon>
+        </button>
+        }
+      </td>
+    </tr>
+    } } }
+  </tbody>
+</table>

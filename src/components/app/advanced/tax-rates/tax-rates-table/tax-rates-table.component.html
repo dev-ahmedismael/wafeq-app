@@ -1,0 +1,42 @@
+<table class="bg-white text-center text-nowrap">
+  <thead class="bg-slate-100">
+    @for (header of tableHeaders; track header.id) {
+    <th class="py-3" [width]="header.width">{{ header.title }}</th>
+    }
+  </thead>
+  <tbody>
+    @for (row of data; track row.id) {
+    <tr class="hover:bg-sky-50">
+      <td>{{ row.name }}</td>
+      <td>{{ row.tax_type }}</td>
+      <td>{{ row.tax_rate }} %</td>
+      <td>{{ row.description }}</td>
+      <td>{{ row.tax_exemption_reason }}</td>
+      <td>
+        @if (row.editable) {
+        <button (click)="edit(row.id)">
+          <fa-icon [icon]="icons.edit" class="text-primary"></fa-icon>
+        </button>
+        } @else {
+        <button title="غير قابل للتعديل">
+          <fa-icon [icon]="icons.edit" class="text-primary"></fa-icon>
+        </button>
+        }
+      </td>
+      <td>
+        @if (row.editable) {
+        <button (click)="delete(row.id)">
+          <fa-icon
+            [icon]="icons.delete"
+            class="text-rose-700"
+          ></fa-icon></button
+        >} @else {
+        <button title="غير قابل للحذف">
+          <fa-icon [icon]="icons.delete" class="text-rose-700"></fa-icon>
+        </button>
+        }
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>

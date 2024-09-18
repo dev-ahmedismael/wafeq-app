@@ -1,0 +1,119 @@
+<section class="bg-white ring-1 ring-slate-200 rounded-lg container py-10">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="grid grid-cols-1 gap-4">
+    <div class="grid grid-cols-3">
+      <label for="code">الرمز <span class="text-rose-700">*</span></label>
+      <input
+        type="text"
+        name="code"
+        formControlName="code"
+        class="col-span-2"
+      />
+    </div>
+    <div class="grid grid-cols-3">
+      <label for="account_name"
+        >الاسم <span class="text-rose-700">*</span></label
+      >
+      <input
+        type="text"
+        name="account_name"
+        formControlName="account_name"
+        class="col-span-2"
+      />
+    </div>
+    <div class="grid grid-cols-3">
+      <label for="type">النوع <span class="text-rose-700">*</span></label>
+      <select type="text" name="type" formControlName="type" class="col-span-2">
+        @for (type of accountTypes; track $index) {
+        <optgroup [label]="type.class">
+          @for (t of type.types; track $index) {
+          <option [value]="t.title">{{ t.title }}</option>
+          }
+        </optgroup>
+        }
+      </select>
+    </div>
+    <div class="grid grid-cols-3">
+      <label for="activity">النشاط <span class="text-rose-700">*</span></label>
+      <select
+        type="text"
+        name="activity"
+        formControlName="activity"
+        class="col-span-2"
+      >
+        @for (activity of activities; track $index) {
+
+        <option [value]="activity">{{ activity }}</option>
+
+        }
+      </select>
+    </div>
+
+    <div class="grid grid-cols-3">
+      <label for="enable_payments">تفعيل عمليات الدفع </label>
+      <div class="col-span-2 flex gap-20">
+        <div class="flex gap-5">
+          <input
+            id="true"
+            type="radio"
+            name="enable_payments"
+            formControlName="enable_payments"
+            value="1"
+          />
+          <label for="true">نعم</label>
+        </div>
+        <div class="flex gap-5">
+          <input
+            id="false"
+            type="radio"
+            name="enable_payments"
+            formControlName="enable_payments"
+            value="0"
+          />
+          <label for="false">لا</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-3">
+      <label for="show_in_expense_claim">إظهار في مطالبات المصروفات </label>
+      <div class="col-span-2 flex gap-20">
+        <div class="flex gap-5">
+          <input
+            id="true-e"
+            type="radio"
+            name="show_in_expense_claim"
+            formControlName="show_in_expense_claim"
+            value="1"
+          />
+          <label for="true-e">نعم</label>
+        </div>
+        <div class="flex gap-5">
+          <input
+            id="false-e"
+            type="radio"
+            name="show_in_expense_claim"
+            formControlName="show_in_expense_claim"
+            value="0"
+          />
+          <label for="false-e">لا</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-end">
+      <div class="flex gap-5">
+        <button type="button" class="red-button" (click)="cancel()">
+          إلغاء
+        </button>
+        <button
+          class="blue-button"
+          type="submit"
+          [disabled]="form.invalid"
+          [title]="form.invalid && 'أكمل الحقول المطلوبة أولاً'"
+        >
+          حفظ
+        </button>
+      </div>
+    </div>
+  </form>
+</section>

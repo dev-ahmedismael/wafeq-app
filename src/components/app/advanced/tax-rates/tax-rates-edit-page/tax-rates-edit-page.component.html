@@ -1,0 +1,65 @@
+<section class="bg-white ring-1 ring-slate-200 rounded-lg container py-10">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="grid grid-cols-1 gap-4">
+    <div class="grid grid-cols-3">
+      <label for="name">الاسم <span class="text-rose-700">*</span></label>
+      <input
+        type="text"
+        name="name"
+        formControlName="name"
+        class="col-span-2"
+      />
+    </div>
+    <div class="grid grid-cols-3">
+      <label for="tax_type"
+        >نوع الضريبة <span class="text-rose-700">*</span></label
+      >
+      <select name="tax_type" formControlName="tax_type" class="col-span-2">
+        @for (taxRate of taxRates; track $index) {
+        <option [value]="taxRate">
+          {{ taxRate }}
+        </option>
+        }
+      </select>
+    </div>
+    <div class="grid grid-cols-3">
+      <label for="tax_rate"
+        >المعدل الضريبي <span class="text-rose-700">*</span></label
+      >
+      <div>
+        <input
+          type="text"
+          name="tax_rate"
+          formControlName="tax_rate"
+          class="col-span-2"
+        />
+        @if (tax_rate.invalid && (tax_rate.touched || tax_rate.dirty)) {
+        <p class="text-rose-700">أدخل أرقام فقط.</p>
+        }
+      </div>
+    </div>
+    <div class="grid grid-cols-3">
+      <label for="description">الوصف</label>
+      <input
+        type="text"
+        name="description"
+        formControlName="description"
+        class="col-span-2"
+      />
+    </div>
+    <div class="flex justify-end">
+      <div class="flex gap-5">
+        <button type="button" class="red-button" (click)="cancel()">
+          إلغاء
+        </button>
+        <button
+          class="blue-button"
+          type="submit"
+          [disabled]="form.invalid"
+          [title]="form.invalid && 'أكمل الحقول المطلوبة أولاً'"
+        >
+          حفظ
+        </button>
+      </div>
+    </div>
+  </form>
+</section>

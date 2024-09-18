@@ -1,0 +1,51 @@
+.accordion-arrow {
+  transition: 0.3s all;
+}
+.accordion-menu {
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.3s;
+}
+
+.accordion-menu-closed {
+  grid-template-rows: 0fr;
+}
+.closed-accordion-arrow {
+  transform: rotate(0deg);
+}
+.opened-accordion-arrow {
+  transform: rotate(-90deg);
+}
+
+#sidebar-body {
+  height: calc(100vh - 80px);
+}
+
+.active {
+  color: white;
+}
+
+// Scrollbar
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #020069;
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #090084;
+}

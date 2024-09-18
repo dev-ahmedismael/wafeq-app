@@ -1,0 +1,71 @@
+<div class="bg-primary text-slate-200 py-2 shadow-lg flex flex-col">
+  <!-- Logo -->
+  <div class="pt-2 text-white container">
+    <div class="flex items-center gap-3">
+      <img ngSrc="assets/images/logo.png" alt="logo" width="30" height="30" />
+      <p class="text-2xl">وافق</p>
+    </div>
+  </div>
+
+  <!-- Sidebar body -->
+  <div id="sidebar-body" class="container text-nowrap my-5 overflow-y-auto">
+    @for (item of sidebarItems; track item.id) {
+
+    <!-- Item contains items -->
+    @if (item.items) {
+    <div
+      class="flex justify-between items-center py-1 px-2 me-1 mb-2 rounded-lg cursor-pointer"
+      (click)="setActiveItem(item.id)"
+      [ngClass]="activeItem == item.id ? 'bg-sidebarSec' : ''"
+    >
+      <div class="flex items-center gap-6">
+        <fa-icon [icon]="item.icon" class="text-xl"></fa-icon>
+        <div>{{ item.title }}</div>
+      </div>
+      <div
+        class="accordion-arrow"
+        [ngClass]="
+          activeItem == item.id
+            ? 'opened-accordion-arrow'
+            : 'closed-accordion-arrow'
+        "
+      >
+        <fa-icon [icon]="icons.arrow"></fa-icon>
+      </div>
+    </div>
+
+    <!-- Items Container -->
+    <div
+      class="mb-1 me-1 px-4 accordion-menu overflow-hidden"
+      [ngClass]="
+        activeItem == item.id ? 'accordion-menu' : 'accordion-menu-closed'
+      "
+    >
+      <div class="min-h-0">
+        @for (item of item.items; track item.id ) {
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          class="block mb-5"
+        >
+          <div class="ms-8">{{ item.title }}</div>
+        </a>
+        }
+      </div>
+    </div>
+    } @else {
+
+    <!-- Item with out subitems -->
+    <a
+      [routerLink]="item.route"
+      routerLinkActive="active"
+      class="flex items-center gap-6 py-1 px-2 mb-2 me-1 rounded-lg"
+      [ngClass]="activeItem == item.id ? 'bg-sidebarSec' : ''"
+      (click)="setActiveItem(item.id)"
+    >
+      <fa-icon [icon]="item.icon" class="text-xl"></fa-icon>
+      <div>{{ item.title }}</div>
+    </a>
+    } }
+  </div>
+</div>
